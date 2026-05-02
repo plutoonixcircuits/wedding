@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>South Indian Engagement Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CHANGED: Root palette refined with softened saturation ===== */
+    :root {
+      --cream: #f5efe3;
+      --pista: #d8e4ca;
+      --rose: #eac7c7;
+      --wine: #5f2e39;
+      --gold: #ba9454;
+      --gold-soft: #d8bd84;
+      --text: #442832;
+      --panel-bg: rgba(255, 252, 246, 0.74);
+      --easing: cubic-bezier(0.65, 0.05, 0.36, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: linear-gradient(160deg, var(--cream), var(--pista) 42%, var(--rose));
+      color: var(--text);
+      font-family: "Cormorant Garamond", serif;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    /* ===== CHANGED: Subtle Kolam SVG backdrop + temple gradients ===== */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23a47757' stroke-width='1.2'%3E%3Ccircle cx='60' cy='60' r='18'/%3E%3Ccircle cx='60' cy='60' r='30'/%3E%3Cpath d='M60 8 L68 24 L52 24 ZM60 112 L68 96 L52 96 ZM8 60 L24 52 L24 68 ZM112 60 L96 52 L96 68 Z'/%3E%3Cpath d='M20 20 Q60 52 100 20 M20 100 Q60 68 100 100 M20 20 Q52 60 20 100 M100 20 Q68 60 100 100'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      mix-blend-mode: multiply;
+    }
+    body::after {
+      background:
+        radial-gradient(100% 35% at 50% 0%, rgba(150, 93, 46, 0.13), transparent 70%),
+        linear-gradient(to bottom, rgba(24, 76, 45, 0.08), transparent 30%, rgba(87, 30, 53, 0.06));
+    }
+
+    .opening-screen,
+    .music-bar,
+    .panels-wrap,
+    .jasmine-field {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+    }
+
+    .opening-screen {
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 252, 246, 0.92), rgba(229, 214, 192, 0.78));
+      transition: opacity 900ms var(--easing), visibility 900ms;
+      overflow: hidden;
+    }
+    .opening-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .mandala {
+      position: absolute;
+      width: min(80vw, 440px);
+      aspect-ratio: 1;
+      opacity: 0.2;
+      animation: spin 40s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .vishnu-tilak {
+      position: absolute;
+      top: 12vh;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      color: var(--wine);
+      letter-spacing: 0.14em;
+    }
+
+    .logo-wrap {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+      cursor: pointer;
+      padding: 1rem;
+      border-radius: 50%;
+      transition: box-shadow 300ms ease;
+    }
+    /* ===== CHANGED: softened hover glow ===== */
+    .logo-wrap:hover { box-shadow: 0 0 30px rgba(186, 148, 84, 0.22); }
+
+    /* ===== CHANGED: Calligraphic initials with gold stroke animation ===== */
+    .initials-svg {
+      width: min(65vw, 260px);
+      height: auto;
+      overflow: visible;
+    }
+    .ink-stroke {
+      fill: none;
+      stroke: url(#goldStroke);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 510;
+      stroke-dashoffset: 510;
+      animation: writeIn 3s var(--easing) forwards;
+      filter: drop-shadow(0 0 6px rgba(186, 148, 84, 0.3));
+    }
+    @keyframes writeIn { to { stroke-dashoffset: 0; } }
+
+    .panels-wrap {
+      z-index: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      perspective: 1px;
+      transform-style: preserve-3d;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .panel {
+      min-height: 100dvh;
+      position: relative;
+      padding: 5.5rem 1.2rem 7rem;
+      display: grid;
+      place-items: center;
+      scroll-snap-align: start;
+      isolation: isolate;
+    }
+
+    .panel::before {
+      /* ===== CHANGED: Banana leaf silhouette background ===== */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(60% 85% at 0% 90%, rgba(43, 107, 59, 0.09), transparent 70%),
+        radial-gradient(65% 85% at 100% 10%, rgba(64, 129, 73, 0.09), transparent 70%);
+      z-index: -2;
+      transform: translateZ(-0.5px) scale(1.5);
+    }
+
+    .panel-card {
+      width: min(94vw, 760px);
+      background: var(--panel-bg);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(186, 148, 84, 0.28);
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(81, 44, 56, 0.12);
+      padding: clamp(1.2rem, 3vw, 2.4rem);
+      text-align: center;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 900ms var(--easing), opacity 900ms var(--easing);
+    }
+    .panel.in-view .panel-card { transform: translateY(0); opacity: 1; }
+
+    h1, h2 {
+      font-family: "Cinzel", serif;
+      margin: 0 0 .6rem;
+      color: var(--wine);
+      letter-spacing: .09em;
+    }
+    .names {
+      font-family: "Cinzel", serif;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      letter-spacing: .08em;
+      animation: nameReveal 1300ms var(--easing) both;
+    }
+    /* ===== CHANGED: slight letter spacing animation ===== */
+    @keyframes nameReveal {
+      from { letter-spacing: 0.28em; opacity: 0; transform: translateY(8px); }
+      to { letter-spacing: 0.08em; opacity: 1; transform: translateY(0); }
+    }
+
+    .divider {
+      height: 1px;
+      width: 180px;
+      margin: .85rem auto 1rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .jasmine-field { pointer-events: none; z-index: 2; }
+    .petal {
+      position: absolute;
+      top: -10vh;
+      font-size: 14px;
+      color: rgba(255,255,255,.85);
+      filter: drop-shadow(0 2px 2px rgba(94,76,65,.2));
+      animation: fall linear infinite;
+      will-change: transform;
+    }
+    @keyframes fall {
+      to { transform: translate3d(var(--drift), 115vh, 0) rotate(var(--rot)); }
+    }
+
+    .event-frame {
+      border: 1.4px solid rgba(186, 148, 84, 0.65);
+      padding: .75rem 1rem;
+      border-radius: 10px;
+      margin: 1rem auto;
+      width: fit-content;
+      min-width: 240px;
+      background: rgba(255,250,241,.58);
+    }
+
+    .address-box {
+      text-align: left;
+      margin: 1.2rem auto 0;
+      width: min(100%, 420px);
+      border: 1px dashed rgba(95, 46, 57, .3);
+      border-radius: 10px;
+      padding: .9rem 1rem;
+      background: rgba(255,255,255,.56);
+      font-size: 1.05rem;
+    }
+
+    .blessing {
+      margin-top: 1rem;
+      cursor: pointer;
+      color: var(--wine);
+      font-style: italic;
+      transition: color .25s ease;
+    }
+    .blessing:hover { color: #7a3444; }
+    .blessing-msg {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: max-height 700ms var(--easing), opacity 700ms var(--easing), transform 700ms var(--easing);
+    }
+    .blessing-msg.reveal {
+      max-height: 120px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .music-bar {
+      inset: auto 0 0 0;
+      height: 56px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .8rem;
+      background: rgba(48, 25, 35, 0.7);
+      backdrop-filter: blur(6px);
+      color: #f5ecde;
+      font-family: "Cinzel", serif;
+      letter-spacing: .07em;
+    }
+    .play-btn {
+      border: 1px solid rgba(216,189,132,.6);
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      border-radius: 20px;
+      padding: .4rem .9rem;
+      cursor: pointer;
+    }
+    .wave span {
+      display: inline-block;
+      width: 3px;
+      height: 8px;
+      margin: 0 1px;
+      border-radius: 4px;
+      background: var(--gold-soft);
+      animation: wave 1s infinite ease-in-out;
+      animation-play-state: paused;
+    }
+    .wave.playing span { animation-play-state: running; }
+    .wave span:nth-child(2){ animation-delay:.1s; }
+    .wave span:nth-child(3){ animation-delay:.2s; }
+    .wave span:nth-child(4){ animation-delay:.3s; }
+    @keyframes wave { 50% { transform: scaleY(2.2); } }
+
+    @media (max-width: 640px) {
+      .panel { padding-inline: .8rem; }
+      .panel-card { border-radius: 14px; }
+      .names { font-size: clamp(1.5rem, 9vw, 2.2rem); }
+    }
+  </style>
+</head>
+<body>
+  <div class="jasmine-field" aria-hidden="true"></div>
+
+  <section class="opening-screen" id="openingScreen">
+    <svg class="mandala" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="none" stroke="#b79458" stroke-width="1.1">
+        <circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="52"/>
+        <path d="M100 18 L110 38 L90 38 Z M100 182 L110 162 L90 162 Z M18 100 L38 90 L38 110 Z M182 100 L162 90 L162 110 Z"/>
+      </g>
+    </svg>
+    <div class="vishnu-tilak">॥ U ॥</div>
+    <div class="logo-wrap" id="enterInvite" title="Tap to open invitation">
+      <svg class="initials-svg" viewBox="0 0 280 160" role="img" aria-label="Calligraphic initials">
+        <defs>
+          <linearGradient id="goldStroke" x1="0%" x2="100%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#7f5a2d"/><stop offset="45%" stop-color="#d3b06a"/><stop offset="100%" stop-color="#8f6b3c"/>
+          </linearGradient>
+        </defs>
+        <path class="ink-stroke" d="M28 130 C44 34,96 34,94 88 C93 118,58 124,48 104 M126 128 C126 72,152 34,198 54 C234 70,221 118,183 126 C168 129,151 126,138 118"/>
+      </svg>
+      <div style="font-family:Cinzel,serif; letter-spacing:.12em; margin-top:.4rem;">Engagement Invitation</div>
+    </div>
+  </section>
+
+  <main class="panels-wrap" id="panelWrap">
+    <section class="panel"><div class="panel-card"><h1>With the blessings of our families</h1><div class="divider"></div><p class="names">Aarav & Meenakshi</p><p>invite you to celebrate their engagement ceremony.</p></div></section>
+    <section class="panel"><div class="panel-card"><h2>Nischayathartham</h2><div class="divider"></div><p>Join us for an evening of tradition, joy, and togetherness.</p></div></section>
+    <section class="panel"><div class="panel-card"><h2>Event Details</h2><div class="event-frame"><strong>Sunday, 30 August 2026 • 6:30 PM</strong></div><div class="address-box"><strong>Sri Lakshmi Convention Hall</strong><br>12 Temple Tank Road,<br>Mylapore, Chennai 600004</div><div class="blessing" id="blessingToggle">Tap for a blessing ✨</div><div class="blessing-msg" id="blessingMsg">May this union be blessed with dharma, love, laughter, and prosperity for generations.</div></div></section>
+  </main>
+
+  <div class="music-bar">
+    <button class="play-btn" id="playBtn">Play Music</button>
+    <div class="wave" id="wave" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <span>Soft Carnatic Instrumental</span>
+  </div>
+
+  <audio id="bgMusic" preload="none" loop src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_2debece17a.mp3?filename=indian-music-125724.mp3"></audio>
+
+  <script>
+    // ===== CHANGED: natural jasmine/petal rain with randomized drift/rotation =====
+    const field = document.querySelector('.jasmine-field');
+    const petalChars = ['❀', '✿', '❁'];
+    for (let i = 0; i < 22; i++) {
+      const petal = document.createElement('span');
+      petal.className = 'petal';
+      petal.textContent = petalChars[Math.floor(Math.random() * petalChars.length)];
+      petal.style.left = `${Math.random() * 100}%`;
+      petal.style.animationDuration = `${8 + Math.random() * 10}s`;
+      petal.style.animationDelay = `${-Math.random() * 12}s`;
+      petal.style.setProperty('--drift', `${-35 + Math.random() * 70}px`);
+      petal.style.setProperty('--rot', `${Math.random() * 520 - 260}deg`);
+      field.appendChild(petal);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.target.classList.toggle('in-view', e.isIntersecting));
+    }, { threshold: 0.35 });
+    document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+
+    // ===== CHANGED: Opening screen entry =====
+    const opening = document.getElementById('openingScreen');
+    document.getElementById('enterInvite').addEventListener('click', () => opening.classList.add('hidden'));
+
+    // ===== CHANGED: Music with fade-in and refined wave sync =====
+    const audio = document.getElementById('bgMusic');
+    const btn = document.getElementById('playBtn');
+    const wave = document.getElementById('wave');
+    let playing = false;
+
+    function fadeInAudio(target = 0.7, duration = 1500) {
+      audio.volume = 0;
+      const steps = 20;
+      let n = 0;
+      const iv = setInterval(() => {
+        n++;
+        audio.volume = Math.min(target, (target / steps) * n);
+        if (n >= steps) clearInterval(iv);
+      }, duration / steps);
+    }
+
+    btn.addEventListener('click', async () => {
+      if (!playing) {
+        await audio.play();
+        fadeInAudio();
+        wave.classList.add('playing');
+        btn.textContent = 'Pause Music';
+      } else {
+        audio.pause();
+        wave.classList.remove('playing');
+        btn.textContent = 'Play Music';
+      }
+      playing = !playing;
+    });
+
+    // ===== CHANGED: Refined blessing reveal =====
+    document.getElementById('blessingToggle').addEventListener('click', () => {
+      document.getElementById('blessingMsg').classList.toggle('reveal');
+    });
+  </script>
+</body>
+</html>
